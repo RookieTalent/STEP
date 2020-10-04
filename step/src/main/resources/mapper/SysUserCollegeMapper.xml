@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="run.app.step.project.system.mapper.SysUserCollegeMapper">
+
+    <resultMap id="SysUserCollege" type="run.app.step.project.system.entity.SysUserCollege">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="college_id" property="collegeId"/>
+        <result property="gmtCreate" column="gmt_create"/>
+        <result property="gmtModified" column="gmt_modified"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, user_id, college_id, gmt_create, gmt_modified
+    </sql>
+
+    <!--根据学院id 与 用户id 查询 关联对象-->
+    <select id="selectByInfo" resultMap="SysUserCollege">
+        select <include refid="Base_Column_List"></include>
+        from sys_user_college
+        where user_id = #{user_id}
+        and college_id = #{college_id}
+    </select>
+</mapper>

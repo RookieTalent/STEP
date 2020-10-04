@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="run.app.step.project.system.mapper.SysLogininfoMapper">
+
+    <!--插入-->
+    <insert id="insertLogininfor">
+        insert into sys_logininfo (nickname, status, ipaddr, login_location, browser, os, msg, login_time)
+		values (#{nickname}, #{status}, #{ipaddr}, #{loginLocation}, #{browser}, #{os}, #{msg}, sysdate())
+    </insert>
+</mapper>

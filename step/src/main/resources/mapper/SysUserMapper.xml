@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="run.app.step.project.system.mapper.SysUserMapper">
+
+    <resultMap id="SysUser" type="run.app.step.project.system.entity.SysUser">
+        <id property="id" column="id"/>
+        <result property="githubId" column="github_id"/>
+        <result property="mobile" column="mobile"/>
+        <result property="email" column="email"/>
+        <result property="nickname" column="nickname"/>
+        <result property="password" column="password"/>
+        <result property="sex" column="sex"/>
+        <result property="age" column="age"/>
+        <result property="avatar" column="avatar"/>
+        <result property="sign" column="sign"/>
+        <result property="isDisabled" column="is_disabled"/>
+        <result property="isDeleted" column="is_deleted"/>
+        <result property="gmtCreate" column="gmt_create"/>
+        <result property="gmtModified" column="gmt_modified"/>
+    </resultMap>
+
+    <resultMap id="UserVO" type="run.app.step.project.system.entity.vo.system.user.UserVO">
+        <id property="id" column="id"/>
+        <result property="mobile" column="mobile"/>
+        <result property="email" column="email"/>
+        <result property="nickname" column="nickname"/>
+        <result property="sex" column="sex"/>
+        <result property="age" column="age"/>
+        <result property="isDisabled" column="is_disabled"/>
+        <result property="gmtCreate" column="gmt_create"/>
+        <association property="info" javaType="run.app.step.project.system.entity.SysUserInfo">
+            <id property="id" column="id"/>
+            <result property="nickname" column="nickname"/>
+            <result property="career" column="career"/>
+            <result property="level" column="level"/>
+            <result property="intro" column="intro"/>
+            <result property="gmtCreate" column="gmt_create"/>
+            <result property="gmtModified" column="gmt_modified"/>
+        </association>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, github_id, mobile, email, nickname, `password`, sex, age, avatar, sign,
+        is_disabled, is_deleted, gmt_create, gmt_modified
+    </sql>
+
+    <!--根据手机号查找用户-->
+    <select id="findByMobile" resultMap="SysUser" parameterType="string">
+        select <include refid="Base_Column_List"></include>
+        from sys_user
+        where mobile=#{mobile}
+        and is_deleted = 1
+        and is_disabled = 1
+    </select>
+
+    <!--根据邮箱查找用户用户-->
+    <select id="findByEmail" resultMap="SysUser" parameterType="string">
+        select <include refid="Base_Column_List"></include>
+        from sys_user
+        where email=#{email}
+        and is_deleted = 1
+        and is_disabled = 1
+    </select>
+
+    <!--查找该昵称-->
+    <select id="findByNickName" resultType="run.app.step.project.system.entity.SysUser">
+        select <include refid="Base_Column_List"></include>
+        from sys_user
+        where nickname = #{nickName}
+        and is_deleted = 1
+        and is_disabled = 1
+    </select>
+
+    <!--根据条件分页查询用户列表  -->
+    <select id="selectUserList" resultMap="UserVO">
+        select
+        u.id, u.nickname, u.email, u.mobile, u.sex, u.is_disabled, u.gmt_create,
+        info.*
+        from sys_user as u
+        left join sys_user_college as c
+        on c.user_id = u.id and c.college_id = #{collegeId}
+        left join sys_user_info as info
+        on info.id = u.id
+        <where>
+            is_deleted = 1
+            <if test="nickname != null and nickname != ''">
+                and nickname like concat('%', #{nickname}, '%')
+            </if>
+            <if test="mobile != null and mobile != ''">
+                and mobile like concat('%', #{mobile}, '%')
+            </if>
+            <if test="isDisabled != null and isDisabled != ''">
+                and is_disabled = #{isDisabled}
+            </if>
+            <if test="collegeId != null and collegeId != ''">
+                and c.college_id = #{collegeId}
+            </if>
+        </where>
+    </select>
+
+    <!--校验用户昵称的唯一性-->
+    <select id="checkNickNameUnique" resultType="java.lang.Integer" parameterType="string">
+        select count(1) from sys_user where nickname=#{nickname}
+    </select>
+
+    <!--校验手机号的唯一性-->
+    <select id="checkMobileUnique" resultType="java.lang.Integer" parameterType="string">
+        select count(1) from sys_user where mobile=#{mobile}
+    </select>
+
+    <!--校验用户邮箱的唯一性-->
+    <select id="checkEmailUnique" resultType="java.lang.Integer" parameterType="string">
+        select count(1) from sys_user where email=#{email}
+    </select>
+
+    <!--根据用户id查询用户信息-->
+    <select id="selectUserById" resultMap="SysUser">
+        select <include refid="Base_Column_List"></include>
+        from sys_user
+        where id=#{id}
+    </select>
+
+    <!--根据用户昵称查询用户信息-->
+    <select id="selectUserByNickName" resultMap="SysUser">
+        select <include refid="Base_Column_List"></include>
+        from sys_user
+        where nickname=#{nickname}
+    </select>
+
+    <!--逻辑删除用户  可批量-->
+    <delete id="deleteUserByIds" parameterType="string">
+        update sys_user set is_deleted = 0 where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

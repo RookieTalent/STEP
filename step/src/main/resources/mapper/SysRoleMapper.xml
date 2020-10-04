@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="run.app.step.project.system.mapper.SysRoleMapper">
+
+    <resultMap id="SysRole" type="run.app.step.project.system.entity.SysRole">
+        <id property="id" column="id"/>
+        <result property="roleName" column="role_name"/>
+        <result property="roleKey" column="role_key"/>
+        <result property="roleSort" column="role_sort"/>
+        <result property="dataScope" column="data_scope"/>
+        <result property="status" column="status"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="createBy" column="create_by"/>
+        <result property="gmtCreate" column="gmt_create"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="gmtModified" column="gmt_modified"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, role_name, role_key, role_sort, data_scope, status,
+        del_flag, create_by, gmt_create, update_by, gmt_modified, remark
+    </sql>
+
+    <!--TODO 最多关联3张表 这里还有学院信息  待定-->
+    <sql id="selectRoleVo">
+        select distinct r.id, r.role_name, r.role_key, r.role_sort, r.data_scope,
+            r.status, r.del_flag, r.gmt_create, r.remark
+        from sys_role as r
+            left join sys_user_role as ur on ur.role_id = r.id
+            left join sys_user as u on u.id = ur.user_id
+    </sql>
+
+    <!--校验角色名称是否唯一-->
+    <select id="checkRoleNameUnique" resultMap="SysRole">
+        select <include refid="Base_Column_List"></include>
+        from sys_role
+        where role_name = #{roleName}
+    </select>
+
+    <!--校验角色权限是否唯一-->
+    <select id="checkRoleKeyUnique" resultMap="SysRole">
+        select <include refid="Base_Column_List"></include>
+        from sys_role
+        where role_key = #{roleKey}
+    </select>
+
+    <!--根据用户ID查询权限-->
+    <select id="selectRolePermissionByUserId" resultMap="SysRole">
+        <include refid="selectRoleVo"></include>
+        where r.del_flag = 1 and ur.user_id = #{userId}
+    </select>
+
+
+</mapper>
