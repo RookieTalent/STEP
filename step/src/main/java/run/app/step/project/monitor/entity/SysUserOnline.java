@@ -15,6 +15,10 @@ import java.util.Date;
 @ToString
 public class SysUserOnline {
 
+    /** 会话编号 */
+    private String tokenId;
+
+
     /**
      * 登录名称
      */
@@ -43,7 +47,8 @@ public class SysUserOnline {
     /**
      * 登录时间
      */
-    private Date loginTime;
+    private Long loginTime;
 
-
+    /** 登录地址 */
+    private String loginLocation;
 }

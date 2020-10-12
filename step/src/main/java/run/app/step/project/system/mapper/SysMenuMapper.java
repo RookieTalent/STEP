@@ -65,4 +65,20 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
      * @return
      */
     List<String> selectMenuPermsByUserId(String userId);
+
+    /**
+     * 根据用户id查询菜单列表
+     *
+     * @param userId
+     * @return
+     */
+    List<SysMenu> selectMenuListByUserId(String userId);
+
+    /**
+     * 根据角色ID查询菜单树信息
+     *
+     * @param id
+     * @return
+     */
+    List<Integer> selectMenuListByRoleId(Long id);
 }

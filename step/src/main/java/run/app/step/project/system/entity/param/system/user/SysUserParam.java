@@ -1,15 +1,19 @@
 package run.app.step.project.system.entity.param.system.user;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
 import org.apache.commons.lang3.StringUtils;
 import run.app.step.common.utils.converter.InputConverter;
+import run.app.step.project.system.entity.SysCollege;
+import run.app.step.project.system.entity.SysRole;
 import run.app.step.project.system.entity.SysUser;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 /**
  * @author lingSong
@@ -49,6 +53,15 @@ public class SysUserParam implements InputConverter<SysUser> {
 
     @ApiModelProperty(value = "用户头像地址")
     private String avatar;
+
+    @ApiModelProperty(value = "学院对象")
+    private SysCollege college;
+
+    @ApiModelProperty(value = "角色对象")
+    private List<SysRole> roles;
+
+    @ApiModelProperty(value = "角色组")
+    private Long[] roleIds;
 
     @Override
     public SysUser convertTo() {

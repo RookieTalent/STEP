@@ -50,7 +50,7 @@ public class CodeGenerator {
         // 4、包配置
         PackageConfig pc = new PackageConfig();
         pc.setParent("run.app.step.project.system");
-        //pc.setController("controller");
+        pc.setController("controller");
         pc.setEntity("entity");
         pc.setService("service");
         pc.setMapper("mapper");
@@ -58,7 +58,7 @@ public class CodeGenerator {
 
         // 5、策略配置
         StrategyConfig strategy = new StrategyConfig();
-        strategy.setInclude("sys_role_college", "sys_role_menu");                     //数据表
+        strategy.setInclude("sys_log");                     //数据表
         strategy.setNaming(NamingStrategy.underline_to_camel);//数据库表映射到实体的命名策略
         strategy.setTablePrefix(pc.getModuleName() + "_"); //生成实体时去掉表前缀
 

@@ -24,7 +24,7 @@ export default {
   //查询用户详细
   getUser(id){
     return request({
-      url:`/system/user/${id}`,
+      url:'/system/user/' + id,
       method:'get'
     })
   },
@@ -49,7 +49,7 @@ export default {
   //从token中获取到登录用户的手机号
   getCode(){
     return request({
-      url:'/captcha',
+      url:'/system/user/captcha',
       method:'get'
     })
   },

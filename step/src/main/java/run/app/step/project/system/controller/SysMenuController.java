@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import run.app.step.common.constants.Constants;
 import run.app.step.common.support.AjaxResult;
+import run.app.step.common.utils.ServiceUtil;
 import run.app.step.framework.security.utils.JwtTokenUtil;
 import run.app.step.framework.web.controller.BaseController;
 import run.app.step.project.system.entity.SysMenu;
@@ -91,5 +92,18 @@ public class SysMenuController extends BaseController {
         menuService.deleteMenuById(id);
         return AjaxResult.ok();
     }
+
+    @GetMapping(value = "/roleMenuTreeselect/{id}")
+    @ApiOperation(value = "加载对应角色菜单列表树")
+    public AjaxResult roleMenuTreeselect(@PathVariable("id")Long id){
+        String userId = JwtTokenUtil.obtainUserId(ServiceUtil.getRequest().getHeader(Constants.ACCESS_TOKEN));
+        List<SysMenu> menus = menuService.selectMenuList(userId);
+        System.out.println("id = " + id);
+        List<Integer> list = menuService.selectMenuListByRoleId(id);
+        return AjaxResult.ok().data("menus", menus)
+                .data("checkedKeys", list);
+    }
+
+
 }
 

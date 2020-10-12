@@ -79,6 +79,7 @@
                 icon="el-icon-plus"
                 size="mini"
                 @click="handleAdd"
+                v-hasPermi="['system:user:add']"
               >新增</el-button>
             </el-col>
             <el-col :span="1.5">
@@ -88,6 +89,7 @@
                 size="mini"
                 :disabled="single"
                 @click="handleUpdate"
+                v-hasPermi="['system:user:edit']"
               >修改</el-button>
             </el-col>
             <el-col :span="1.5">
@@ -97,6 +99,7 @@
                 size="mini"
                 :disabled="multiple"
                 @click="handleDelete"
+                v-hasPermi="['system:user:remove']"
               >删除</el-button>
             </el-col>
             <el-col :span="1.5">
@@ -105,6 +108,7 @@
                 icon="el-icon-upload2"
                 size="mini"
                 @click="handleImport"
+                v-hasPermi="['system:user:import']"
               >导入</el-button>
             </el-col>
             <el-col :span="1.5">
@@ -113,6 +117,7 @@
                 icon="el-icon-download"
                 size="mini"
                 @click="handleExport"
+                v-hasPermi="['system:user:export']"
               >导出</el-button>
             </el-col>
           </el-row>
@@ -201,9 +206,8 @@
       <el-dialog :title="title" :visible.sync="open" width="600px" append-to-body>
         <el-form ref="form" :model="form" :rules="rules" label-width="80px">
           <el-row>
-            <!--TODO  如果是更新的话 还需要做额外的处理-->
             <el-col :span="12">
-              <el-form-item label="用户昵称" prop="nickname">
+              <el-form-item v-if="form.id == undefined" label="用户昵称" prop="nickname">
                 <el-input v-model="form.nickname" placeholder="请输入用户昵称"/>
               </el-form-item>
             </el-col>
@@ -256,8 +260,25 @@
                 <el-input v-model="form.age" placeholder="请输入年龄"/>
               </el-form-item>
             </el-col>
+            <el-col :span="12">
+              <el-form-item label="归属学院" prop="collegeId">
+                <treeselect v-model="form.collegeId" :options="collegeOptions" :disable-branch-nodes="true" :show-count="true" placeholder="请选择归属学院" />
+              </el-form-item>
+            </el-col>
           </el-row>
-          <!--TODO  还有学院  角色   职位-->
+          <el-row>
+              <el-form-item label="角色">
+                <el-select v-model="form.roleIds" multiple placeholder="请选择角色信息">
+                  <el-option
+                    v-for="item in roleOptions"
+                    :key="item.id"
+                    :label="item.roleName"
+                    :value="item.id"
+                    :disabled="item.status == 1"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+          </el-row>
         </el-form>
         <!--确认与取消-->
         <div slot="footer">
@@ -359,6 +380,8 @@
           sexOptions:[],
           // 状态数据字典
           statusOptions: [],
+          // 角色选项
+          roleOptions:[],
           //表单参数
           form:{},
           //用户数据表格
@@ -471,14 +494,16 @@
         /**  表单重置*/
         reset(){
           this.form = {
-            userId: undefined,
+            id: undefined,
+            collegeId: undefined,
             nickname: undefined,
             password: undefined,
             mobile: undefined,
             email: undefined,
             sex: undefined,
-            age: undefined
-            //TODO 可以引入头像 后期还有角色 学院 职位等
+            age: undefined,
+            isDisabled: 1,
+            roleIds: [],
           }
         },
 
@@ -498,17 +523,25 @@
         /**  新增用户打开窗口*/
         handleAdd(){
           this.reset();
-          this.open = true;
-          this.title = "添加用户";
+          this.getTreeselect();
+          UserApi.getUser().then(response =>{
+            this.roleOptions = response.data.roles;
+
+            console.log(this.roleOptions);
+
+            this.open = true;
+            this.title = "添加用户";
+          });
         },
 
         /** 修改用户打开窗口*/
         handleUpdate(row){
           this.reset();
-          //TODO 学院 角色 职称
           const id = row.id || this.ids;
           UserApi.getUser(id).then(response =>{
             this.form = response.data.user;
+            this.roleOptions = response.data.roles;
+            this.form.roleIds = response.data.roleIds;
             this.open=true;
             this.title="修改用户";
           });

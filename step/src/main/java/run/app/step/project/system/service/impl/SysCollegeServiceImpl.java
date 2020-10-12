@@ -147,6 +147,11 @@ public class SysCollegeServiceImpl extends ServiceImpl<SysCollegeMapper, SysColl
         userCollegeMapper.deleteById(ucObject.getId());
     }
 
+    @Override
+    public List<Integer> selectCollegeByRoleId(Long id) {
+        return collegeMapper.selectCollegeByRoleId(id);
+    }
+
 
     /**
      * 构建学院树 归类children

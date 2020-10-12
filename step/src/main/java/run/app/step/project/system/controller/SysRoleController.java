@@ -11,8 +11,13 @@ import org.springframework.web.bind.annotation.*;
 import run.app.step.common.support.AjaxResult;
 import run.app.step.common.utils.ServiceUtil;
 import run.app.step.framework.security.LoginUser;
+import run.app.step.framework.web.controller.BaseController;
 import run.app.step.project.system.entity.SysRole;
+import run.app.step.project.system.entity.param.system.role.RoleQuery;
+import run.app.step.project.system.entity.vo.PageVO;
 import run.app.step.project.system.service.SysRoleService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -26,23 +31,54 @@ import run.app.step.project.system.service.SysRoleService;
 @RequestMapping("/system/role")
 @Api(tags = "系统模块-角色管理")
 @CrossOrigin(origins = {"*"}, allowCredentials = "true")
-public class SysRoleController {
+public class SysRoleController extends BaseController {
 
     @Autowired
     private SysRoleService roleService;
 
-    @GetMapping
+
+    @PostMapping("/list")
+    @ApiOperation(value = "获取角色分页列表")
+    public PageVO list(@RequestBody RoleQuery roleQuery){
+        startPage(roleQuery.getPageNum(), roleQuery.getPageSize());
+        List<SysRole> list = roleService.selectRoleList(roleQuery);
+        return getDataTable(list);
+    }
+
+    @PostMapping
     @ApiOperation(value = "角色新增")
-    @PreAuthorize("@ss.hasPermi('system:role:add')")
-    public AjaxResult insert(){
-        Authentication authentication = ServiceUtil.getAuthentication();
-        System.out.println("authentication = " + authentication);
-
-        String nickName = ServiceUtil.getNickName();
-        System.out.println("nickName = " + nickName);
-
+    public AjaxResult insert(@RequestBody SysRole role){
+        role.setCreateBy(ServiceUtil.getNickName());
+        roleService.insertRole(role);
         return AjaxResult.ok();
     }
 
+    @GetMapping(value = "/{id}")
+    @ApiOperation(value = "根据id查询角色的信息")
+    public AjaxResult getInfo(@PathVariable Long id){
+        return AjaxResult.ok().data("role", roleService.selectRoleById(id));
+    }
+
+    @PutMapping("/dataScope")
+    @ApiOperation(value = "角色数据权限范围")
+    public AjaxResult dataScope(@RequestBody SysRole role){
+        roleService.authDataScope(role);
+        return AjaxResult.ok();
+    }
+
+    @PutMapping
+    @ApiOperation(value = "修改角色信息")
+    public AjaxResult edit(@RequestBody SysRole role){
+        role.setUpdateBy(ServiceUtil.getNickName());
+        roleService.updateRole(role);
+        return AjaxResult.ok();
+    }
+
+    @DeleteMapping("/{roleIds}")
+    @ApiOperation(value = "删除角色信息")
+    public AjaxResult remove(@PathVariable Long[] roleIds){
+        roleService.deleteRoleByIds(roleIds);
+        return AjaxResult.ok();
+    }
 }
 

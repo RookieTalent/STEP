@@ -33,7 +33,7 @@ public interface SysUserService extends IService<SysUser> {
      * 新增用户
      * @param newUser
      */
-    int insertUser(SysUser newUser);
+    void insertUser(SysUser newUser);
 
     /**
      * 通过手机号查询

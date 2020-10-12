@@ -21,6 +21,15 @@ public interface SysMenuService extends IService<SysMenu> {
     /**
      * 获取菜单列表
      *
+     * @param userId
+     * @return
+     */
+    List<SysMenu> selectMenuList(String  userId);
+
+
+    /**
+     * 获取菜单列表
+     *
      * @param menuQuery
      * @return
      */
@@ -86,4 +95,12 @@ public interface SysMenuService extends IService<SysMenu> {
      * @return
      */
     Set<String> selectMenuPermsByUserId(String userId);
+
+    /**
+     * 根据角色ID查询菜单树信息
+     *
+     * @param id
+     * @return
+     */
+    List<Integer> selectMenuListByRoleId(Long id);
 }

@@ -2,4 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="run.app.step.project.system.mapper.SysRoleMenuMapper">
 
+    <resultMap id="SysRoleMenu" type="run.app.step.project.system.entity.SysRoleMenu">
+        <result property="roleId" column="role_id"/>
+        <result property="menuId" column="menu_id"/>
+    </resultMap>
+
+    <!--批量新增角色菜单信息-->
+    <insert id="batchRoleMenu">
+        insert into sys_role_menu(role_id, menu_id) values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.roleId},#{item.menuId})
+        </foreach>
+    </insert>
+
+    <!--删除角色与菜单关联-->
+    <delete id="deleteRoleMenuByRoleId">
+        delete from sys_role_menu where role_id = #{id}
+    </delete>
 </mapper>

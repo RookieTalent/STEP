@@ -60,4 +60,12 @@ public interface SysCollegeMapper extends BaseMapper<SysCollege> {
      * @return
      */
     int checkDeptExistUser(String id);
+
+    /**
+     * 根据角色id查询部门树信息
+     *
+     * @param id
+     * @return
+     */
+    List<Integer> selectCollegeByRoleId(Long id);
 }

@@ -15,6 +15,7 @@ import run.app.step.common.constants.UserConstants;
 import run.app.step.common.exception.AlreadyExistsException;
 import run.app.step.common.exception.BadRequestException;
 import run.app.step.common.exception.NotFoundException;
+import run.app.step.common.utils.ServiceUtil;
 import run.app.step.common.utils.StringUtils;
 import run.app.step.common.utils.encode.PasswordUtils;
 import run.app.step.framework.cache.RedisService;
@@ -22,21 +23,23 @@ import run.app.step.framework.event.LoginEvent;
 import run.app.step.framework.factory.NoIfFactory;
 import run.app.step.framework.factory.handler.AbstractNoIfHandler;
 import run.app.step.framework.security.utils.JwtTokenUtil;
+import run.app.step.project.system.entity.SysCollege;
 import run.app.step.project.system.entity.SysUser;
+import run.app.step.project.system.entity.SysUserCollege;
+import run.app.step.project.system.entity.SysUserRole;
 import run.app.step.project.system.entity.param.LoginParam;
 import run.app.step.project.system.entity.param.system.user.UserQuery;
 import run.app.step.project.system.entity.vo.TokenVO;
 import run.app.step.project.system.entity.vo.TreeSelect;
 import run.app.step.project.system.entity.vo.system.user.UserVO;
+import run.app.step.project.system.mapper.SysUserCollegeMapper;
 import run.app.step.project.system.mapper.SysUserMapper;
+import run.app.step.project.system.mapper.SysUserRoleMapper;
 import run.app.step.project.system.service.SysUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -63,6 +66,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Autowired
     private SysUserMapper userMapper;
 
+    @Autowired
+    private SysUserRoleMapper userRoleMapper;
+
+    @Autowired
+    private SysUserCollegeMapper userCollegeMapper;
 
     @Override
     public List<UserVO> selectUserList(UserQuery userQuery) {
@@ -70,8 +78,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
-    public int insertUser(SysUser newUser) {
-        //TODO 校验 全局异常类捕获
+    public void insertUser(SysUser newUser) {
         AbstractNoIfHandler strategy = NoIfFactory.getInvokeStrategy(Constants.USER_NO_IF);
         strategy.insertUserNoif(newUser);
 
@@ -80,13 +87,15 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         /*newUser.setPassword(PasswordUtils.encode(newUser.getPassword(), salt));*/
 
         /** 目前运行结果失败原因是：注解无法被使用int result = userMapper.insertUser(newUser);*/
-        int result = userMapper.insert(newUser);
+        ServiceUtil.throwsException(userMapper.insert(newUser), "插入新用户失败");
 
-        //TODO 新增用户学院关联
-        //TODO 新增用户与角色关联
-
-        return result;
+        //新增用户学院关联
+        insertUserCollege(newUser);
+        //新增用户与角色关联
+        insertUserRole(newUser);
     }
+
+
 
     @Override
     public SysUser findByMobileOfNonNull(String mobile) {
@@ -129,14 +138,19 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public int updateUser(SysUser sysUser) {
-        //TODO 删除与用户关联的角色信息
-        //TODO 新增与用户关联的信息
-        //TODO 删除与职位相关联的信息
-        //TODO 新增与职业相关联的信息
+        final String userId = sysUser.getId();
 
-        //TODO 校验 全局异常类捕获
         AbstractNoIfHandler strategy = NoIfFactory.getInvokeStrategy(Constants.USER_NO_IF);
         strategy.updateUserNoif(sysUser);
+
+        //删除与用户关联的角色信息
+        userRoleMapper.deleteUserRoleByUserId(userId);
+        //新增与用户关联的信息
+        insertUserRole(sysUser);
+        //删除与学院相关联的信息
+        userCollegeMapper.deleteUserCollegeByUserId(userId);
+        //新增与学院相关联的信息
+        insertUserCollege(sysUser);
 
         return userMapper.updateById(sysUser);
     }
@@ -147,6 +161,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
         if(sms_captcha == null || !code.equals(sms_captcha)) return 0;
 
+        // 删除用户与角色关联表
+        batchDeleteUserRole(ids);
+        // 删除用户与学院关联报表
+        batchDeleteUserCollege(ids);
         return userMapper.deleteUserByIds(ids);
     }
 
@@ -216,8 +234,60 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
                 JwtTokenUtil.getRemainingTime(refreshToken), TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * 批量删除用户与学院关联表信息
+     * @param ids
+     */
+    private void batchDeleteUserCollege(String[] ids) {
+        for (String id : ids) {
+            userCollegeMapper.deleteUserCollegeByUserId(id);
+        }
+    }
 
+    /**
+     * 批量删除用户与角色关联表信息
+     * @param ids
+     */
+    private void batchDeleteUserRole(String[] ids) {
+        for (String id : ids) {
+            userRoleMapper.deleteUserRoleByUserId(id);
+        }
+    }
 
+    /**
+     * 新增用户学院关联
+     *
+     * @param newUser
+     */
+    private void insertUserCollege(SysUser newUser) {
+        SysCollege college = newUser.getCollege();
+
+        SysUserCollege uc = new SysUserCollege();
+        uc.setUserId(newUser.getId());
+        uc.setCollegeId(college.getId());
+
+        userCollegeMapper.insert(uc);
+    }
+
+    /**
+     * 新增用户角色信息
+     *
+     * @param newUser
+     */
+    private void insertUserRole(SysUser newUser) {
+        Long[] roles = newUser.getRoleIds();
+        if(StringUtils.isNotNull(roles)){
+            List<SysUserRole> list = new ArrayList<>();
+            for (Long roleId : roles) {
+                SysUserRole ur = new SysUserRole();
+                ur.setUserId(newUser.getId());
+                ur.setRoleId(roleId);
+                list.add(ur);
+            }
+            if(list.size() > 0)
+                userRoleMapper.batchUserRole(list);
+        }
+    }
 
 
     /**

@@ -45,5 +45,18 @@ public class BaseController {
         return result;
     }
 
+    protected PageVO getDataTable(List<?> list, boolean flag){
+        PageVO result = new PageVO();
+
+        if(flag){
+            result.setHttpStatus(HttpStatus.OK);
+            result.setMsg("查询成功");
+            result.setRows(list);
+            result.setTotal((long) list.size());
+        }
+
+        return result;
+    }
+
 
 }

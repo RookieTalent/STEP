@@ -15,9 +15,11 @@ import '@/styles/index.scss' // global css
 import App from './App'
 import router from './router'
 import store from './store'
+import permission from './directive/permission';
 
 import '@/icons' // icon
 import '@/permission' // permission control
+
 
 // 全局方法挂载
 Vue.prototype.getDicts = getDicts;
@@ -27,6 +29,7 @@ Vue.prototype.resetForm = resetForm;
 Vue.prototype.buildUUID = buildUUID;
 Vue.prototype.addDateRange = addDateRange;
 
+Vue.use(permission)
 Vue.use(ElementUI, { locale })
 
 Vue.config.productionTip = false

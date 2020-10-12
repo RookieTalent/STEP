@@ -2,4 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="run.app.step.project.system.mapper.SysRoleCollegeMapper">
 
+    <resultMap id="SysRoleCollege" type="run.app.step.project.system.entity.SysRoleCollege">
+        <result property="roleId" column="role_id"/>
+        <result property="collegeId" column="college_id"/>
+    </resultMap>
+
+    <!--批量插入数据-->
+    <insert id="batchRoleCollege">
+        insert into sys_role_college(role_id, college_id) values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.roleId},#{item.collegeId})
+        </foreach>
+    </insert>
+
+    <!--删除角色与学院关联-->
+    <delete id="deleteRoleCollegeByRoleId">
+        delete from sys_role_college where role_id = #{id}
+    </delete>
 </mapper>

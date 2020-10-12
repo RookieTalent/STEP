@@ -1,7 +1,10 @@
 package run.app.step.project.system.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
+
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -52,16 +55,28 @@ public class SysRole implements Serializable {
     private String createBy;
 
     @ApiModelProperty(value = "创建时间")
+    @TableField(fill = FieldFill.INSERT)
     private Date gmtCreate;
 
     @ApiModelProperty(value = "更新者")
     private String updateBy;
 
     @ApiModelProperty(value = "更新时间")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date gmtModified;
 
     @ApiModelProperty(value = "备注")
     private String remark;
 
+    @TableField(exist = false)
+    @ApiModelProperty(value = "菜单组")
+    private String[] menuIds;
 
+    @TableField(exist = false)
+    @ApiModelProperty(value = "学院组（数据权限）")
+    private String[] collegeIds;
+
+    /** 用户是否存在此角色标识 默认不存在 */
+    @TableField(exist = false)
+    private boolean flag = false;
 }

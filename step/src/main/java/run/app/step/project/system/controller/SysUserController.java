@@ -11,18 +11,29 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.multipart.MultipartFile;
 import run.app.step.common.constants.Constants;
+import run.app.step.common.enums.code.BusinessType;
 import run.app.step.common.enums.code.DBResponseCode;
 import run.app.step.common.support.AjaxResult;
+import run.app.step.common.utils.ServiceUtil;
+import run.app.step.common.utils.StringUtils;
 import run.app.step.common.utils.poi.ExcelUtil;
+import run.app.step.framework.aspectj.lang.annotation.AutoLog;
+import run.app.step.framework.cache.RedisService;
+import run.app.step.framework.security.LoginUser;
+import run.app.step.framework.security.service.SysPermissionService;
+import run.app.step.framework.security.utils.JwtTokenUtil;
 import run.app.step.framework.web.controller.BaseController;
+import run.app.step.project.system.entity.SysRole;
 import run.app.step.project.system.entity.SysUser;
 import run.app.step.project.system.entity.param.system.user.SysUserParam;
 import run.app.step.project.system.entity.param.system.user.UserQuery;
 import run.app.step.project.system.entity.vo.PageVO;
 import run.app.step.project.system.entity.vo.system.user.UserVO;
+import run.app.step.project.system.service.SysRoleService;
 import run.app.step.project.system.service.SysUserService;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -41,6 +52,15 @@ public class SysUserController extends BaseController {
     @Autowired
     private SysUserService sysUserService;
 
+    @Autowired
+    private SysRoleService roleService;
+
+    @Autowired
+    private RedisService redisService;
+
+    @Autowired
+    private SysPermissionService permissionService;
+
     /**
      * 获取用户信息列表
      * @param userQuery
@@ -48,6 +68,7 @@ public class SysUserController extends BaseController {
      */
     @PostMapping("/list")
     @ApiOperation(value = "获取用户列表接口")
+    @AutoLog(title = "系统管理-用户管理", action = "用户列表", businessType = BusinessType.LIST)
     public PageVO list(@Validated @RequestBody UserQuery userQuery){
         startPage(userQuery.getPageNum(), userQuery.getPageSize());
         List<UserVO> list = sysUserService.selectUserList(userQuery);
@@ -61,6 +82,7 @@ public class SysUserController extends BaseController {
      */
     @PostMapping
     @ApiOperation(value = "新增单个用户接口")
+    @PreAuthorize("@ss.hasPermi('system:user:add')")
     public AjaxResult createBy(@Validated @RequestBody SysUserParam sysUserParam){
         // convert to
         SysUser newUser = sysUserParam.convertTo();
@@ -76,10 +98,17 @@ public class SysUserController extends BaseController {
      */
     @GetMapping(value = "/{id}")
     @ApiOperation(value = "根据用户编号获取sys_user表内的信息接口")
+    @PreAuthorize("@ss.hasPermi('system:user:query')")
     public AjaxResult obtionInfo(@PathVariable(value = "id")String id){
-        UserVO userVO = sysUserService.selectUserById(id);
-        //TODO 要绑定角色和职称的  其实可以从另一个接口实现 这里只做返回update处的
-        return AjaxResult.ok().data("user", userVO);
+        List<SysRole> roles = roleService.selectRoleAll();
+
+        if(!"undefined".equals(id)) {
+            UserVO userVO = sysUserService.selectUserById(id);
+            return AjaxResult.ok().data("user", userVO)
+                            .data("roleIds", roleService.selectRoleListByUserId(id))
+                            .data("roles", roles);
+        }
+        return AjaxResult.ok().data("roles", roles);
     }
 
     /**
@@ -89,6 +118,7 @@ public class SysUserController extends BaseController {
      */
     @PutMapping
     @ApiOperation(value = "更新用户信息接口")
+    @PreAuthorize("@ss.hasPermi('system:user:edit')")
     public AjaxResult edit(@Validated @RequestBody SysUserParam sysUserParam){
         // convert to
         SysUser sysUser = sysUserParam.convertTo();
@@ -106,6 +136,7 @@ public class SysUserController extends BaseController {
      */
     @DeleteMapping(value = "/{ids}/{code}/{mobile}")
     @ApiOperation(value = "删除用户信息接口")
+    @PreAuthorize("@ss.hasPermi('system:user:remove')")
     public AjaxResult remove(@PathVariable String[] ids, @PathVariable String code, @PathVariable String mobile){
         return sysUserService.deleteUserByIds(ids, code, mobile) > 0 ? AjaxResult.ok() : AjaxResult.error(DBResponseCode.DELETE_ERROR);
     }
@@ -119,6 +150,7 @@ public class SysUserController extends BaseController {
      */
     @PostMapping("/importData")
     @ApiOperation(value = "通过excel表导入新增用户接口")
+    @PreAuthorize("@ss.hasPermi('system:user:import')")
     public AjaxResult importData(MultipartFile file, boolean updateSupport) throws Exception{
         ExcelUtil<SysUser> util = new ExcelUtil<>(SysUser.class);
         List<SysUser> userList = util.importExcel(file.getInputStream()); // TODO 用户密码还得设置
@@ -137,6 +169,7 @@ public class SysUserController extends BaseController {
 
     @GetMapping("/export")
     @ApiOperation(value = "导出数据库至xlsx表")
+    @PreAuthorize("@ss.hasPermi('system:user:export')")
     public AjaxResult export(UserQuery userQuery){
         List<UserVO> list = sysUserService.selectUserList(userQuery);
         ExcelUtil<UserVO> util = new ExcelUtil<>(UserVO.class);
@@ -171,10 +204,22 @@ public class SysUserController extends BaseController {
     @GetMapping(value = "/info")
     @ApiOperation(value = "获取用户详细信息接口")
     public AjaxResult info(){
+        String token = ServiceUtil.getRequest().getHeader(Constants.ACCESS_TOKEN);
+        String userKey = JwtTokenUtil.obtainLoginUser(token);
 
-        return AjaxResult.ok().data("roles","[admin]")
-                .data("name", "admin")
-                .data("avatar", "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
+        // 获取信息
+        LoginUser loginUser = (LoginUser) redisService.get(userKey);
+
+        //TODO 修改用户那块 角色集合
+        Set<String> roles = permissionService.getRolePermssion(loginUser.getUser());
+
+        // 权限集合
+        Set<String> permissions = permissionService.getMenuPermission(loginUser.getUser());
+
+        return AjaxResult.ok().data("roles",roles)
+                .data("name", loginUser.getUsername())
+                .data("avatar", loginUser.getUser().getAvatar())
+                .data("permissions", permissions);
     }
 
 

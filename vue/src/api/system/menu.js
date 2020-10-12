@@ -51,6 +51,14 @@ export default {
       url: `/system/menu/${id}`,
       method: 'delete'
     })
+  },
+
+  // 根据角色id查询菜单下拉树结构
+  roleMenuTreeselect(id){
+    return request({
+      url: '/system/menu/roleMenuTreeselect/' + id,
+      method: 'get'
+    });
   }
 
 

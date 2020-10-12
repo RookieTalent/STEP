@@ -4,6 +4,8 @@ const utils = require('./utils')
 const config = require('../config')
 const { VueLoaderPlugin } = require('vue-loader')
 const vueLoaderConfig = require('./vue-loader.conf')
+var Stomp = require('stompjs')
+
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)

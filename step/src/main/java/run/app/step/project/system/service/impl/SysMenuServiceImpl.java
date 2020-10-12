@@ -38,6 +38,11 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     private SysMenuMapper menuMapper;
 
     @Override
+    public List<SysMenu> selectMenuList(String userId) {
+        return menuMapper.selectMenuListByUserId(userId);
+    }
+
+    @Override
     public List<SysMenu> selectMenuList(MenuQuery menuQuery) {
         List<SysMenu> menuList = null;
 
@@ -113,6 +118,11 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         return permsSet;
     }
 
+    @Override
+    public List<Integer> selectMenuListByRoleId(Long id) {
+        return menuMapper.selectMenuListByRoleId(id);
+    }
+
 
     /**
      * 构建父子级树
@@ -142,8 +152,8 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         target.setChildren(childList);
 
         for (SysMenu tChild : childList) {
+            // 判断是否有子节点
             if(hasChild(list, tChild)){
-                // 判断是否有子节点
                 Iterator<SysMenu> it = childList.iterator();
                 while (it.hasNext()){
                     SysMenu next = (SysMenu)it.next();

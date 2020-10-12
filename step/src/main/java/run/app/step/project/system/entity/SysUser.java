@@ -7,12 +7,15 @@ import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.util.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import run.app.step.common.utils.StringUtils;
 import run.app.step.framework.aspectj.lang.annotation.Excel;
 
 /**
@@ -80,4 +83,20 @@ public class SysUser {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date gmtModified;
 
+    @ApiModelProperty(value = "学院对象")
+    @TableField(exist = false)
+    private SysCollege college;
+
+    @ApiModelProperty(value = "角色对象")
+    @TableField(exist = false)
+    private List<SysRole> roles;
+
+    @ApiModelProperty(value = "角色组")
+    @TableField(exist = false)
+    private Long[] roleIds;
+
+    //TODO 暂定
+    public static boolean isAdmin(String userId){
+        return StringUtils.isNotNull(userId) && "1294622577226002433".equals(userId);
+    }
 }

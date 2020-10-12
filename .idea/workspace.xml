@@ -2,7 +2,83 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="155d636e-205e-40b2-93ab-59464a3c1a87" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/step/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/common/enums/code/BusinessType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/framework/aspectj/lang/annotation/AutoLog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/entity/param/system/log/OperLogQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/entity/param/system/role/RoleQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/step/src/main/resources/mapper/SysLogMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/step/src/main/resources/mapper/SysUserRoleMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/src/api/monitor/online.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/src/api/system/operlog.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/src/api/system/role.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/src/directive/permission/hasPermi.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/src/directive/permission/hasRole.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/src/directive/permission/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/src/utils/chat.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/src/views/monitor/online/chat/index.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/src/views/system/log/index.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue/src/views/system/role/index.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/step/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/StepApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/StepApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/framework/aspectj/AutoLogAspect.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/framework/aspectj/AutoLogAspect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/framework/security/service/PermissionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/framework/security/service/PermissionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/framework/security/utils/JwtTokenUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/framework/security/utils/JwtTokenUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/framework/web/controller/BaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/framework/web/controller/BaseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/framework/web/service/SmsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/framework/web/service/SmsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/common/CodeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/common/CodeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/monitor/controller/SysUserOnlineController.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/monitor/controller/SysUserOnlineController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/monitor/entity/SysUserOnline.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/monitor/entity/SysUserOnline.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/monitor/service/SysUserOnlineService.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/monitor/service/SysUserOnlineService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/monitor/service/impl/SysUserOnlineServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/monitor/service/impl/SysUserOnlineServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/controller/SysCollegeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/controller/SysCollegeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/controller/SysDictDataController.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/controller/SysDictDataController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/controller/SysDictTypeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/controller/SysDictTypeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/controller/SysMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/controller/SysMenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/controller/SysRoleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/controller/SysRoleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/controller/SysUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/controller/SysUserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/entity/SysRole.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/entity/SysRole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/entity/SysUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/entity/SysUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/entity/param/system/user/SysUserParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/entity/param/system/user/SysUserParam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/mapper/SysCollegeMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/mapper/SysCollegeMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/mapper/SysMenuMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/mapper/SysMenuMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/mapper/SysRoleCollegeMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/mapper/SysRoleCollegeMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/mapper/SysRoleMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/mapper/SysRoleMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/mapper/SysRoleMenuMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/mapper/SysRoleMenuMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/mapper/SysUserCollegeMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/mapper/SysUserCollegeMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/service/SysCollegeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/service/SysCollegeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/service/SysMenuService.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/service/SysMenuService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/service/SysRoleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/service/SysRoleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/service/SysUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/service/SysUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/service/impl/SysCollegeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/service/impl/SysCollegeServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/service/impl/SysMenuServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/service/impl/SysMenuServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/service/impl/SysRoleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/service/impl/SysRoleServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/service/impl/SysUserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/java/run/app/step/project/system/service/impl/SysUserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/resources/mapper/SysCollegeMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/resources/mapper/SysCollegeMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/resources/mapper/SysMenuMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/resources/mapper/SysMenuMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/resources/mapper/SysRoleCollegeMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/resources/mapper/SysRoleCollegeMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/resources/mapper/SysRoleMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/resources/mapper/SysRoleMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/resources/mapper/SysRoleMenuMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/resources/mapper/SysRoleMenuMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/main/resources/mapper/SysUserCollegeMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/resources/mapper/SysUserCollegeMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/test/java/run/app/step/StepApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/test/java/run/app/step/StepApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step/src/test/java/run/app/step/gen/CodeGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/test/java/run/app/step/gen/CodeGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/README-zh.md" beforeDir="false" afterPath="$PROJECT_DIR$/vue/README-zh.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/build/webpack.base.conf.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue/build/webpack.base.conf.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/vue/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/src/api/system/college.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue/src/api/system/college.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/src/api/system/menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue/src/api/system/menu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/src/api/system/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue/src/api/system/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/src/store/getters.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue/src/store/getters.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/src/store/modules/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue/src/store/modules/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/src/utils/request.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue/src/utils/request.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/src/views/dashboard/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue/src/views/dashboard/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/src/views/monitor/online/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue/src/views/monitor/online/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/src/views/system/menu/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue/src/views/system/menu/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/src/views/system/user/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue/src/views/system/user/index.vue" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,13 +90,13 @@
     <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="119">
-                <caret line="10" column="9" lean-forward="true" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
+              <first_editor relative-caret-position="300">
+                <caret line="20" column="12" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="12" />
               </first_editor>
               <second_editor />
             </state>
@@ -40,10 +116,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="951" />
-    <option name="y" value="-9" />
-    <option name="width" value="978" />
-    <option name="height" value="1048" />
+    <option name="x" value="1050" />
+    <option name="width" value="879" />
+    <option name="height" value="1049" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -51,6 +126,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -62,8 +139,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -96,30 +171,24 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1601776784822</updated>
-      <workItem from="1601776787562" duration="786000" />
+      <workItem from="1601776787562" duration="970000" />
+      <workItem from="1602483094157" duration="37000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="786000" />
+    <option name="totallyTimeSpent" value="1007000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info id="Designer" />
-      <window_info id="Image Layers" />
-      <window_info id="UI Designer" />
-      <window_info id="Favorites" side_tool="true" />
-      <window_info id="Capture Tool" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21648793" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2191689" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" visible="true" weight="0.33002833" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="bottom" id="Statistic" />
-      <window_info anchor="bottom" id="Database Changes" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
+      <window_info id="Designer" order="2" />
+      <window_info id="UI Designer" order="3" />
+      <window_info id="Favorites" order="4" side_tool="true" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Image Layers" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -127,17 +196,23 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Maven" />
-      <window_info anchor="right" id="RestServices" />
-      <window_info anchor="right" id="Palette" />
-      <window_info anchor="right" id="Capture Analysis" />
-      <window_info anchor="right" id="Word Book" side_tool="true" />
-      <window_info anchor="right" id="Theme Preview" />
-      <window_info anchor="right" id="Database" />
-      <window_info anchor="right" id="Palette&#9;" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.4631728" />
+      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Statistic" order="9" />
+      <window_info anchor="bottom" id="Database Changes" order="10" />
+      <window_info anchor="bottom" id="Version Control" order="11" />
+      <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Maven" order="3" />
+      <window_info anchor="right" id="RestServices" order="4" />
+      <window_info anchor="right" id="Palette" order="5" />
+      <window_info anchor="right" id="Capture Analysis" order="6" />
+      <window_info anchor="right" id="Word Book" order="7" side_tool="true" />
+      <window_info anchor="right" id="Database" order="8" />
+      <window_info anchor="right" id="Palette&#9;" order="9" />
+      <window_info anchor="right" id="Theme Preview" order="10" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -147,8 +222,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="119">
-            <caret line="10" column="9" lean-forward="true" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
+          <first_editor relative-caret-position="300">
+            <caret line="20" column="12" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="12" />
           </first_editor>
           <second_editor />
         </state>

@@ -23,4 +23,11 @@ public interface SysUserCollegeMapper extends BaseMapper<SysUserCollege> {
      * @return
      */
     SysUserCollege selectByInfo(@Param("college_id") String college_id, @Param("user_id") String user_id);
+
+    /**
+     * 删除学院表与用户表相关联的信息
+     *
+     * @param userId
+     */
+    void deleteUserCollegeByUserId(String userId);
 }

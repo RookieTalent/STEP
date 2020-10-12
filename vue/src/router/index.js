@@ -73,6 +73,18 @@ export const constantRouterMap = [
         name: '字典管理',
         component: () => import('@/views/system/dict/index'),
         meta: { title: '字典数据', icon: 'table' },
+      },
+      {
+        path: '/role',
+        name: '角色管理',
+        component: () => import('@/views/system/role/index'),
+        meta: { title: '角色管理', icon: 'table' },
+      },
+      {
+        path: '/log',
+        name: '日志管理',
+        component: () => import('@/views/system/log/index'),
+        meta: { title: '日志管理', icon: 'table' },
       }
     ]
   },
@@ -90,6 +102,10 @@ export const constantRouterMap = [
         component: () => import('@/views/monitor/online/index'),
         meta: { title: '在线用户', icon: 'table' }
       },
+      {
+        path: 'http://localhost:8081/druid/index.html',
+        meta: { title: '数据监控', icon: 'link' }
+      }
     ]
   },
 
@@ -120,6 +136,22 @@ export const constantRouterMap = [
       {
         path: 'profile',
         component: (resolve) => require(['@/views/system/user/profile/index'], resolve),
+        name: 'Profile',
+        meta: { title: '个人中心', icon: '' }
+      }
+    ]
+  },
+
+  // 聊天室
+  {
+    path: '/online',
+    component: Layout,
+    hidden: true,
+    redirect: 'noredirect',
+    children: [
+      {
+        path: 'chat',
+        component: (resolve) => require(['@/views/monitor/online/chat/index'], resolve),
         name: 'Profile',
         meta: { title: '个人中心', icon: '' }
       }

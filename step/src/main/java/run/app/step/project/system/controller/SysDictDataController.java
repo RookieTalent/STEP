@@ -43,8 +43,8 @@ public class SysDictDataController extends BaseController {
 
     @PostMapping
     @ApiOperation(value = "插入字典数据")
-    public AjaxResult insert(@RequestBody SysDictData dictData, HttpServletRequest request){
-        dictData.setCreateBy(ServiceUtil.obtainOperator(request));
+    public AjaxResult insert(@RequestBody SysDictData dictData){
+        dictData.setCreateBy(ServiceUtil.getNickName());
 
         dictDataService.insertDictData(dictData);
         return AjaxResult.ok();

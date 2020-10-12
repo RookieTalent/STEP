@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="run.app.step.project.system.mapper.SysLogMapper">
+
+    <resultMap id="SysLog" type="run.app.step.project.system.entity.SysLog">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="nickname" column="nickname"/>
+        <result property="operation" column="operation"/>
+        <result property="time" column="time"/>
+        <result property="params" column="params"/>
+        <result property="ip" column="ip"/>
+        <result property="method" column="method"/>
+        <result property="methodMode" column="method_mode"/>
+        <result property="gmtCreate" column="gmt_create"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, user_id, nickname, operation, `time`, params, ip, method, method_mode, gmt_create
+    </sql>
+
+    <!--根据条件查询列表-->
+    <select id="selectOperLogList" resultMap="SysLog">
+        select <include refid="Base_Column_List"></include>
+        from sys_log
+        <where>
+            <if test="operation != null and operation != ''">
+                and operation like concat('%', #{operation}, '%')
+            </if>
+            <if test="nickname != null and nickname != ''">
+                and nickname like concat('%', #{nickname}, '%')
+            </if>
+            <if test="methodMode != null and methodMode != ''">
+                and method_mode like concat('%', #{methodMode}, '%')
+            </if>
+            <if test="beginTime != null and beginTime != ''"><!-- 开始时间检索 -->
+                and date_format(gmt_create,'%y%m%d') &gt;= date_format(#{beginTime},'%y%m%d')
+            </if>
+            <if test="endTime != null and endTime != ''"><!-- 结束时间检索 -->
+                and date_format(gmt_create,'%y%m%d') &lt;= date_format(#{endTime},'%y%m%d')
+            </if>
+        </where>
+    </select>
+
+    <!--批量删除日志-->
+    <delete id="deleteOperLogByIds">
+        delete from sys_log where id in
+        <foreach collection="array" item="operId" open="(" separator="," close=")">
+            #{operId}
+        </foreach>
+    </delete>
+
+    <!--清空日志表  序号从1开始-->
+    <delete id="cleanOperLog">
+         truncate table sys_log
+    </delete>
+
+
+</mapper>

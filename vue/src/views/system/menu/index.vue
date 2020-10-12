@@ -42,8 +42,11 @@
         <el-table-column prop="orderNum" label="排序" width="60"></el-table-column>
         <el-table-column prop="perms" label="权限标识" :show-overflow-tooltip="true"></el-table-column>
         <el-table-column prop="component" label="组件路径" :show-overflow-tooltip="true"></el-table-column>
-        <!--TODO 格式化内容-->
-        <el-table-column prop="status" label="状态" width="80"></el-table-column>
+        <el-table-column prop="status" label="状态" width="80">
+          <template slot-scope="scope">
+            <span>{{scope.row.status == 1 ? '正常' : '禁用'}}</span>
+          </template>
+        </el-table-column>
         <el-table-column label="创建时间" align="center" prop="gmtCreate">
           <template slot-scope="scope">
             <span>{{ scope.row.gmtCreate }}</span>
@@ -339,7 +342,7 @@
                 // 更新
                 MenuApi.updateMenu(this.form).then(response =>{
                   if(response.code === 0){
-                    this.$message({type: 'success',message: '修改菜单信息成功!'});
+                    this.$notify({type: 'success',message: '修改菜单信息成功!'});
                     this.open = false;
                     this.getList();
                   }
@@ -348,7 +351,7 @@
                 // 新增
                 MenuApi.addMenu(this.form).then(response =>{
                   if(response.code === 0){
-                    this.$message({type: 'success',message: '新增菜单信息成功!'});
+                    this.$notify({type: 'success',message: '新增菜单信息成功!'});
                     this.open = false;
                     this.getList();
                   }
@@ -368,7 +371,7 @@
             return MenuApi.delMenu(row.id);
           }).then(() =>{
             this.getList();
-            this.$message({type: 'success',message: '删除菜单信息成功!'});
+            this.$notify({type: 'success',message: '删除菜单信息成功!'});
           }).catch(function () {});
         }
 

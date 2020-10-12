@@ -85,5 +85,11 @@ public interface SysCollegeService extends IService<SysCollege> {
      */
     void deleteById(String id);
 
-
+    /**
+     * 根据角色id查询部门树信息
+     *
+     * @param id
+     * @return
+     */
+    List<Integer> selectCollegeByRoleId(Long id);
 }

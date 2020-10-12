@@ -12,6 +12,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import run.app.step.common.constants.Constants;
 import run.app.step.common.constants.JwtConstants;
 import run.app.step.common.constants.UserConstants;
+import run.app.step.common.enums.code.BusinessType;
 import run.app.step.common.support.AjaxResult;
 import run.app.step.common.utils.StringUtils;
 import run.app.step.common.utils.VerifyCodeUtils;
@@ -31,8 +32,10 @@ import run.app.step.project.system.entity.*;
 import run.app.step.project.system.entity.param.LoginParam;
 import run.app.step.project.system.entity.param.system.user.SysUserParam;
 import run.app.step.project.system.entity.vo.system.user.UserVO;
+import run.app.step.project.system.mapper.SysRoleMapper;
 import run.app.step.project.system.mapper.SysRoleMenuMapper;
 import run.app.step.project.system.mapper.SysUserMapper;
+import run.app.step.project.system.service.SysDictDataService;
 import run.app.step.project.system.service.SysDictTypeService;
 import run.app.step.project.system.service.SysUserService;
 
@@ -51,20 +54,15 @@ class StepApplicationTests {
     @Autowired
     private SysPermissionService permissionService;
 
+    @Autowired
+    private SysDictTypeService dictTypeService;
+
+    @Autowired
+    private SysRoleMapper roleMapper;
+
     @Test
     void contextLoads() throws IOException {
-        SysUser user = userMapper.selectUserById("1294622577226002433");
-
-        Set<String> menuPermission = permissionService.getMenuPermission(user);
-        for (String s : menuPermission) {
-            System.out.println("s = " + s);
-        }
-
-        Set<String> rolePermssion = permissionService.getRolePermssion(user);
-        for (String s : rolePermssion) {
-            System.out.println("s = " + s);
-        }
-
+        System.out.println(BusinessType.CLEAN.toString());
     }
 
 

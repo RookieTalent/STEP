@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import run.app.step.common.constants.Constants;
+import run.app.step.common.constants.JwtConstants;
+import run.app.step.common.constants.VodConstants;
 import run.app.step.framework.cache.RedisService;
 import run.app.step.framework.security.utils.JwtTokenUtil;
 import run.app.step.project.system.service.SysUserService;
@@ -42,9 +44,7 @@ public class SmsService {
      * @param code
      * @return
      */
-    public boolean send(String access_token, String code, String mobile) {
-        Assert.notNull(access_token, "access token must not be null");
-
+    public boolean send(String code, String mobile) {
         if(StringUtils.isEmpty(mobile)){
             return false;
         }
@@ -53,7 +53,7 @@ public class SmsService {
         param.put("code", code);
 
         DefaultProfile profile =
-                DefaultProfile.getProfile("default", "LTAI4GE8bGXx52uER3GnMeai", "TTUOd2UV9rC44NOYwkCqsynBV7eMTs");
+                DefaultProfile.getProfile("default", VodConstants.ACCESS_KEY_ID, VodConstants.ACCESS_KEY_SECRET);
         IAcsClient client = new DefaultAcsClient(profile);
 
         //设置固定相关参数

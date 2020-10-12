@@ -64,5 +64,14 @@
         where college_id = #{id}
     </select>
 
+    <!--根据角色ID查询部门树信息-->
+    <select id="selectCollegeByRoleId" resultType="java.lang.Integer">
+        select c.id, c.parent_id
+        from sys_college as c
+            left join sys_role_college as rc on c.id = rc.college_id
+        where rc.role_id = #{id}
+            and c.id not in (select c.parent_id from sys_college as c inner join sys_role_college as rc on c.id = rc.college_id and rc.role_id = #{id})
+    </select>
+
 
 </mapper>

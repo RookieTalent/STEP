@@ -56,7 +56,7 @@ public class SysDictTypeController extends BaseController {
     @PostMapping
     @ApiOperation(value = "添加字典类型")
     public AjaxResult insert(@RequestBody SysDictType dictType, HttpServletRequest request){
-        dictType.setCreateBy(JwtTokenUtil.obtainNickName(request.getHeader(Constants.ACCESS_TOKEN)));
+        dictType.setCreateBy(ServiceUtil.getNickName());
         dictTypeService.insertDictType(dictType);
 
         return AjaxResult.ok();

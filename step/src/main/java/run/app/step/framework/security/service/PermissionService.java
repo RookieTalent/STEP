@@ -88,7 +88,7 @@ public class PermissionService {
 
 
     private boolean hasPermissions(Set<String> permissions, String permission){
-        return permission.contains(ALL_PERMISSION) || permissions.contains(StringUtils.trim(permission));
+        return permissions.contains(ALL_PERMISSION) || permissions.contains(StringUtils.trim(permission));
     }
 
 

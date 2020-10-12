@@ -51,6 +51,14 @@ export default {
       url: `/system/college/${id}`,
       method: 'delete'
     })
+  },
+
+  // 根据角色id查询学院树结构
+  roleCollegeTreeselect(id){
+    return request({
+      url: '/system/college/roleDeptTreeselect/' + id,
+      method: 'get'
+    })
   }
 
 }

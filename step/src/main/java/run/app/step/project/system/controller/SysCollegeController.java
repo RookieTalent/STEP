@@ -86,5 +86,12 @@ public class SysCollegeController extends BaseController {
         return AjaxResult.ok();
     }
 
+    @GetMapping(value = "/roleDeptTreeselect/{id}")
+    @ApiOperation(value = "加载对应角色部门树")
+    public AjaxResult roleDeptTreeselect(@PathVariable("id")Long id){
+        List<SysCollege> colleges = collegeService.selectCollegeList(new CollegeQuery());
+        return AjaxResult.ok().data("colleges", collegeService.buildCollegeTreeSelect(colleges))
+                .data("checkedKeys",collegeService.selectCollegeByRoleId(id));
+    }
 }
 

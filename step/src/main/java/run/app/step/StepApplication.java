@@ -8,9 +8,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
 @MapperScan({"run.app.step.project.system.mapper"})
+@EnableAsync
 public class StepApplication implements CommandLineRunner {
 
     @Autowired
@@ -26,6 +28,6 @@ public class StepApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         Environment environment = appCtx.getBean(Environment.class);
-
     }
+
 }

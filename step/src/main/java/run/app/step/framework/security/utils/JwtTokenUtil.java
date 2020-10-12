@@ -117,7 +117,6 @@ public class JwtTokenUtil {
         String token = UUID.fastUUID().toString();
         loginUser.setToken(token);
         loginUser.setLoginTime(System.currentTimeMillis());
-        //TODO 时间不对
         loginUser.setExpireTime(loginUser.getLoginTime() + JwtConstants.ACCESS_TOKEN_EXPIRETIME.toMillis());
 
         claims.put(Constants.LOGIN_USER_KEY, token);
