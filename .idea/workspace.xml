@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="155d636e-205e-40b2-93ab-59464a3c1a87" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/step/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/step/src/main/resources/application.properties" afterDir="false" />
-    </list>
+    <list default="true" id="155d636e-205e-40b2-93ab-59464a3c1a87" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,19 +25,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/step/src/main/java/run/app/step/framework/web/service/SmsService.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-45" />
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/step/src/main/resources/application.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="99" column="27" selection-start-line="99" selection-end-line="99" selection-end-column="84" />
-            </state>
           </provider>
         </entry>
       </file>
@@ -56,10 +45,10 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="1050" />
-    <option name="width" value="879" />
-    <option name="height" value="1049" />
+    <option name="width" value="880" />
+    <option name="height" value="1050" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -114,15 +103,16 @@
       <updated>1601776784822</updated>
       <workItem from="1601776787562" duration="970000" />
       <workItem from="1602483094157" duration="37000" />
-      <workItem from="1602483140719" duration="579000" />
+      <workItem from="1602483140719" duration="665000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1586000" />
+    <option name="totallyTimeSpent" value="1672000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22184986" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -181,16 +171,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/step/src/main/java/run/app/step/framework/web/service/SmsService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-45" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/step/src/main/resources/application.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
           <caret line="99" column="27" selection-start-line="99" selection-end-line="99" selection-end-column="84" />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/step/src/main/java/run/app/step/framework/web/service/SmsService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-45" />
       </provider>
     </entry>
   </component>

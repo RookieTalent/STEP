@@ -2,44 +2,23 @@
 'use strict';
 import store from '@/store';
 
-const enpoint = "/step";
+const enpoint = "ws";
 
 var nickname = store.getters.name;
-var stompClient = null;
 
 
 /**
  * 连接服务器
  */
-function connect() {
-  var socket = new  SockJS(enpoint);
-  stompClient = Stomp.over(socket);
-  // 配置stomp
-  config();
-  // 订阅地址
-  sub();
+function connect(socket) {
+  socket = new WebSocket("ws://127.0.0.1:8082/"+enpoint);
 }
 
 /**
- * 订阅地址
+ * 发布
  */
-function sub() {
-  stompClient.connect(nickname, function (frame) {
+function wsSend(socket) {
 
-  }, function (error) {
-    alert("错误请刷新");
-
-  })
-}
-
-/**
- * stomp配置
- */
-function config() {
-  // 每隔30秒一个心跳检测
-  stompClient.heartbeat.outgoing = 30000;
-  // 客户端不接受服务器的心跳检测
-  stompClient.heartbeat.incoming = 0;
 }
 
 

@@ -64,6 +64,7 @@
             icon="el-icon-plus"
             size="mini"
             @click="handleAdd"
+            v-hasPermi="['system:dict:add']"
           >新增</el-button>
         </el-col>
         <el-col :span="1.5">
@@ -73,6 +74,7 @@
             size="mini"
             :disabled="single"
             @click="handleUpdate"
+            v-hasPermi="['system:dict:edit']"
           >修改</el-button>
         </el-col>
         <el-col :span="1.5">
@@ -81,6 +83,7 @@
             icon="el-icon-delete"
             size="mini"
             @click="handleDelete"
+            v-hasPermi="['system:dict:remove']"
             :disabled="multiple"
           >删除</el-button>
         </el-col>
@@ -90,6 +93,7 @@
             icon="el-icon-download"
             size="mini"
             @click="handleExport"
+            v-hasPermi="['system:dict:export']"
           >导出</el-button>
         </el-col>
         <el-col :span="1.5">
@@ -97,6 +101,7 @@
             type="danger"
             icon="el-icon-refresh"
             size="mini"
+            v-hasPermi="['system:dict:remove']"
           >清理缓存</el-button>
         </el-col>
       </el-row>
@@ -132,12 +137,14 @@
               type="text"
               icon="el-icon-edit"
               @click="handleUpdate(scope.row)"
+              v-hasPermi="['system:dict:edit']"
             >修改</el-button>
             <el-button
               size="mini"
               type="text"
               icon="el-icon-delete"
               @click="handleDelete(scope.row)"
+              v-hasPermi="['system:dict:remove']"
             >删除</el-button>
           </template>
         </el-table-column>

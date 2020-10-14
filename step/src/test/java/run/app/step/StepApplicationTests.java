@@ -28,10 +28,12 @@ import run.app.step.framework.security.service.SysPermissionService;
 import run.app.step.framework.security.utils.JwtTokenUtil;
 import run.app.step.project.common.CaptchaController;
 import run.app.step.project.system.controller.SysLoginController;
+import run.app.step.project.system.controller.SysNoticeController;
 import run.app.step.project.system.entity.*;
 import run.app.step.project.system.entity.param.LoginParam;
 import run.app.step.project.system.entity.param.system.user.SysUserParam;
 import run.app.step.project.system.entity.vo.system.user.UserVO;
+import run.app.step.project.system.mapper.SysNoticeMapper;
 import run.app.step.project.system.mapper.SysRoleMapper;
 import run.app.step.project.system.mapper.SysRoleMenuMapper;
 import run.app.step.project.system.mapper.SysUserMapper;
@@ -60,9 +62,12 @@ class StepApplicationTests {
     @Autowired
     private SysRoleMapper roleMapper;
 
+    @Autowired
+    private SysNoticeMapper noticeMapper;
+
+
     @Test
     void contextLoads() throws IOException {
-        System.out.println(BusinessType.CLEAN.toString());
     }
 
 

@@ -8,6 +8,9 @@
         <i class="el-icon-caret-bottom"/>
       </div>
       <el-dropdown-menu slot="dropdown" class="user-dropdown">
+        <router-link class="inlineBlock" to="/">
+          <el-dropdown-item>首 页</el-dropdown-item>
+        </router-link>
         <router-link class="inlineBlock" to="/user/profile">
           <el-dropdown-item>个人中心</el-dropdown-item>
         </router-link>

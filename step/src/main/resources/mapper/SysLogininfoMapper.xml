@@ -7,4 +7,9 @@
         insert into sys_logininfo (nickname, status, ipaddr, login_location, browser, os, msg, login_time)
 		values (#{nickname}, #{status}, #{ipaddr}, #{loginLocation}, #{browser}, #{os}, #{msg}, sysdate())
     </insert>
+
+    <!--查询条数-->
+    <select id="selectLimitLog" resultType="run.app.step.project.system.entity.SysLogininfo">
+        select * from sys_logininfo ORDER BY info_id DESC LIMIT 0,10
+    </select>
 </mapper>

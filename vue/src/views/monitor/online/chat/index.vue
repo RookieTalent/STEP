@@ -24,15 +24,16 @@
         </div>
       </el-card>
 
-      <el-input placeholder="请输入聊天信息" v-model="form" @keyup.enter.native="test" >
+      <el-input placeholder="请输入聊天信息" v-model="form" @keyup.enter.native="chat" >
         <template slot="prepend">{{nickname}}</template>
-        <el-button slot="append" type="warning" icon="el-icon-chat-line-square" @click="test"></el-button>
+        <el-button slot="append" type="warning" icon="el-icon-chat-line-square" @click="chat"></el-button>
       </el-input>
+
     </div>
 </template>
 
 <script>
-    import{connect} from '@/utils/chat'
+    import{connect, wsSend} from '@/utils/chat'
     import store from '@/store'
 
 
@@ -45,25 +46,58 @@
             // 测试头像
             avatar: store.getters.avatar,
             nickname: store.getters.name,
-            type:["success","info","warning","error"]
-
+            type:["success","info","warning","error"],
+            socket: null,
+            receive: ""
           }
       },
 
       created() {
-        connect();
+        this.init();
       },
 
       methods:{
-        test(){
-          alert(this.form);
-          this.form = "";
-        },
-
         getType(){
           var index = Math.ceil(Math.random()*(3-(-1)))+(-1);
           return index;
         },
+
+        init(){
+          alert("待完成!");
+        }
+
+        /*init(){
+          if(window.WebSocket){
+            this.socket = new WebSocket("ws://127.0.0.1:8082/ws");
+            this.socket.onopen = this.socketonOpen();
+            this.socket.onclose = this.socketonClose();
+            this.socket.onerror = this.socketonError();
+            this.socket.onmessage = this.socketonMessage();
+          }else{
+            console.log("您的浏览器不支持websocket协议");
+          }
+        },
+
+        chat(){
+          this.socket.send(JSON.stringify(this.form));
+        },
+
+        socketonOpen(){
+          console.log("建立成功");
+        },
+
+        socketonClose(){
+          console.log("链接关闭");
+        },
+
+        socketonError(){
+          console.log("发生异常");
+        },
+
+        socketonMessage(event){
+          console.log("接收消息" + event);
+          this.receive = event;
+        },*/
 
       }
     }

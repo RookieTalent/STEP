@@ -224,6 +224,7 @@
       },
 
       created() {
+        this.init();
       },
 
       methods:{
@@ -303,6 +304,11 @@
               this.open = false;
               break;
           }
+        },
+
+        //TODO 待完成
+        init(){
+          alert("待完成");
         }
 
       }

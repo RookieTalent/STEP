@@ -83,6 +83,7 @@ public class SysUserController extends BaseController {
     @PostMapping
     @ApiOperation(value = "新增单个用户接口")
     @PreAuthorize("@ss.hasPermi('system:user:add')")
+    @AutoLog(title = "系统管理-用户管理", action = "新增用户", businessType = BusinessType.INSERT)
     public AjaxResult createBy(@Validated @RequestBody SysUserParam sysUserParam){
         // convert to
         SysUser newUser = sysUserParam.convertTo();
@@ -99,6 +100,7 @@ public class SysUserController extends BaseController {
     @GetMapping(value = "/{id}")
     @ApiOperation(value = "根据用户编号获取sys_user表内的信息接口")
     @PreAuthorize("@ss.hasPermi('system:user:query')")
+    @AutoLog(title = "系统管理-用户管理", action = "单体查询", businessType = BusinessType.OTHER)
     public AjaxResult obtionInfo(@PathVariable(value = "id")String id){
         List<SysRole> roles = roleService.selectRoleAll();
 
@@ -119,6 +121,7 @@ public class SysUserController extends BaseController {
     @PutMapping
     @ApiOperation(value = "更新用户信息接口")
     @PreAuthorize("@ss.hasPermi('system:user:edit')")
+    @AutoLog(title = "系统管理-用户管理", action = "更新用户", businessType = BusinessType.UPDATE)
     public AjaxResult edit(@Validated @RequestBody SysUserParam sysUserParam){
         // convert to
         SysUser sysUser = sysUserParam.convertTo();
@@ -137,6 +140,7 @@ public class SysUserController extends BaseController {
     @DeleteMapping(value = "/{ids}/{code}/{mobile}")
     @ApiOperation(value = "删除用户信息接口")
     @PreAuthorize("@ss.hasPermi('system:user:remove')")
+    @AutoLog(title = "系统管理-用户管理", action = "删除用户", businessType = BusinessType.DELETE)
     public AjaxResult remove(@PathVariable String[] ids, @PathVariable String code, @PathVariable String mobile){
         return sysUserService.deleteUserByIds(ids, code, mobile) > 0 ? AjaxResult.ok() : AjaxResult.error(DBResponseCode.DELETE_ERROR);
     }
@@ -151,6 +155,7 @@ public class SysUserController extends BaseController {
     @PostMapping("/importData")
     @ApiOperation(value = "通过excel表导入新增用户接口")
     @PreAuthorize("@ss.hasPermi('system:user:import')")
+    @AutoLog(title = "系统管理-用户管理", action = "用户导入", businessType = BusinessType.IMPORT)
     public AjaxResult importData(MultipartFile file, boolean updateSupport) throws Exception{
         ExcelUtil<SysUser> util = new ExcelUtil<>(SysUser.class);
         List<SysUser> userList = util.importExcel(file.getInputStream()); // TODO 用户密码还得设置
@@ -162,6 +167,7 @@ public class SysUserController extends BaseController {
 
     @GetMapping("/importTemplate")
     @ApiOperation(value = "下载用户xlsx模板")
+    @AutoLog(title = "系统管理-用户管理", action = "xlsx模板", businessType = BusinessType.OTHER)
     public AjaxResult importTemplate(){
         ExcelUtil<SysUser> util = new ExcelUtil<>(SysUser.class);
         return util.importTemplateExcel("用户数据");
@@ -170,6 +176,7 @@ public class SysUserController extends BaseController {
     @GetMapping("/export")
     @ApiOperation(value = "导出数据库至xlsx表")
     @PreAuthorize("@ss.hasPermi('system:user:export')")
+    @AutoLog(title = "系统管理-用户管理", action = "用户导出", businessType = BusinessType.EXPORT)
     public AjaxResult export(UserQuery userQuery){
         List<UserVO> list = sysUserService.selectUserList(userQuery);
         ExcelUtil<UserVO> util = new ExcelUtil<>(UserVO.class);
@@ -180,6 +187,7 @@ public class SysUserController extends BaseController {
     //TODO  这里最好再返回mobile和email比较好
     @GetMapping("/treeselect")
     @ApiOperation(value = "获取用户下拉树菜单")
+    @AutoLog(title = "系统管理-用户管理", action = "下拉菜单", businessType = BusinessType.OTHER)
     public AjaxResult treeselect(){
         List<UserVO> list = sysUserService.selectUserList(new UserQuery());
 
@@ -189,6 +197,7 @@ public class SysUserController extends BaseController {
 
     @GetMapping("/logout")
     @ApiOperation(value = "用户登出接口")
+    @AutoLog(title = "系统管理-用户管理", action = "用户登出", businessType = BusinessType.OTHER)
     public AjaxResult logout(HttpServerRequest request){
         String access_token = request.getHeader(Constants.ACCESS_TOKEN);
         String refresh_token = request.getHeader(Constants.REFRESH_TOKEN);
@@ -203,6 +212,7 @@ public class SysUserController extends BaseController {
      */
     @GetMapping(value = "/info")
     @ApiOperation(value = "获取用户详细信息接口")
+    @AutoLog(title = "系统管理-用户管理", action = "整合用户", businessType = BusinessType.OTHER)
     public AjaxResult info(){
         String token = ServiceUtil.getRequest().getHeader(Constants.ACCESS_TOKEN);
         String userKey = JwtTokenUtil.obtainLoginUser(token);

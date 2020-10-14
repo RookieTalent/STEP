@@ -9,9 +9,11 @@ import run.app.step.common.support.AjaxResult;
 import run.app.step.common.utils.poi.ExcelUtil;
 import run.app.step.framework.web.controller.BaseController;
 import run.app.step.project.system.entity.SysLog;
+import run.app.step.project.system.entity.SysLogininfo;
 import run.app.step.project.system.entity.param.system.log.OperLogQuery;
 import run.app.step.project.system.entity.vo.PageVO;
 import run.app.step.project.system.service.SysLogService;
+import run.app.step.project.system.service.SysLogininfoService;
 
 import java.util.List;
 
@@ -29,6 +31,9 @@ public class SysLogController extends BaseController {
 
     @Autowired
     private SysLogService logService;
+
+    @Autowired
+    private SysLogininfoService logininfoService;
 
     @PostMapping("/list")
     @ApiOperation(value = "日志列表")
@@ -61,5 +66,10 @@ public class SysLogController extends BaseController {
         return util.exportExcel(list, "操作日志");
     }
 
+    @GetMapping("/loginInfo")
+    @ApiOperation(value = "查询登录信息， 限定15条")
+    public AjaxResult loginInfo(){
+        return AjaxResult.ok().data("list", logininfoService.selectLimitLog());
+    }
 }
 

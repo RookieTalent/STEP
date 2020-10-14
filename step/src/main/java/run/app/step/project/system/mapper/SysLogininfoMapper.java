@@ -4,6 +4,8 @@ import org.springframework.stereotype.Repository;
 import run.app.step.project.system.entity.SysLogininfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -22,4 +24,12 @@ public interface SysLogininfoMapper extends BaseMapper<SysLogininfo> {
      * @return
      */
     int insertLogininfor(SysLogininfo logininfor);
+
+    /**
+     * 查询条数
+     *
+     * @return
+     */
+    List<SysLogininfo> selectLimitLog();
+
 }

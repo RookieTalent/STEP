@@ -8,7 +8,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import run.app.step.common.enums.code.BusinessType;
 import run.app.step.common.support.AjaxResult;
+import run.app.step.framework.aspectj.lang.annotation.AutoLog;
 import run.app.step.framework.web.controller.BaseController;
 import run.app.step.project.system.entity.SysCollege;
 import run.app.step.project.system.entity.param.system.college.CollegeQuery;
@@ -36,6 +38,7 @@ public class SysCollegeController extends BaseController {
 
     @PostMapping("/list")
     @ApiOperation(value = "查询学院列表")
+    @AutoLog(title = "系统模块-学院管理", action = "学院列表", businessType = BusinessType.LIST)
     public AjaxResult list(@RequestBody(required = false) CollegeQuery collegeQuery){
         List<SysCollege> list = collegeService.selectCollegeList(collegeQuery);
 
@@ -44,6 +47,7 @@ public class SysCollegeController extends BaseController {
 
     @GetMapping("/treeselect")
     @ApiOperation(value = "获取部门下拉树列表")
+    @AutoLog(title = "系统模块-学院管理", action = "学院菜单树", businessType = BusinessType.LIST)
     public AjaxResult treeselect(){
         List<SysCollege> colleges = collegeService.selectCollegeList(new CollegeQuery());
 
@@ -52,6 +56,8 @@ public class SysCollegeController extends BaseController {
 
     @PostMapping
     @ApiOperation(value = "新增学院信息")
+    @PreAuthorize("@ss.hasPermi('system:college:add')")
+    @AutoLog(title = "系统模块-学院管理", action = "新增学院", businessType = BusinessType.INSERT)
     public AjaxResult createBy(@Validated @RequestBody SysCollegeParam collegeParam){
         collegeService.insertCollege(collegeParam);
 
@@ -61,6 +67,8 @@ public class SysCollegeController extends BaseController {
 
     @GetMapping(value = "/{id}")
     @ApiOperation(value = "根据学院id查询学院信息")
+    @PreAuthorize("@ss.hasPermi('system:college:query')")
+    @AutoLog(title = "系统模块-学院管理", action = "单体查询", businessType = BusinessType.OTHER)
     public AjaxResult obtionInfo(@PathVariable(value = "id")String id){
         SysCollege college = collegeService.selectCollegeById(id);
 
@@ -70,6 +78,8 @@ public class SysCollegeController extends BaseController {
 
     @PutMapping
     @ApiOperation(value = "修改目前选中的学院信息")
+    @PreAuthorize("@ss.hasPermi('system:college:edit')")
+    @AutoLog(title = "系统模块-学院管理", action = "修改学院", businessType = BusinessType.UPDATE)
     public AjaxResult edit(@Validated @RequestBody SysCollegeParam collegeParam){
         // convert to
         SysCollege college = collegeParam.convertTo();
@@ -80,6 +90,8 @@ public class SysCollegeController extends BaseController {
 
     @DeleteMapping(value = "/{id}")
     @ApiOperation(value = "删除目前选中的学院信息")
+    @PreAuthorize("@ss.hasPermi('system:college:remove')")
+    @AutoLog(title = "系统模块-学院管理", action = "删除学院", businessType = BusinessType.DELETE)
     public AjaxResult delete(@PathVariable(value = "id")String id){
         collegeService.deleteById(id);
 
@@ -87,7 +99,8 @@ public class SysCollegeController extends BaseController {
     }
 
     @GetMapping(value = "/roleDeptTreeselect/{id}")
-    @ApiOperation(value = "加载对应角色部门树")
+    @ApiOperation(value = "加载对应角色学院树")
+    @AutoLog(title = "系统模块-学院管理", action = "学院树", businessType = BusinessType.LIST)
     public AjaxResult roleDeptTreeselect(@PathVariable("id")Long id){
         List<SysCollege> colleges = collegeService.selectCollegeList(new CollegeQuery());
         return AjaxResult.ok().data("colleges", collegeService.buildCollegeTreeSelect(colleges))

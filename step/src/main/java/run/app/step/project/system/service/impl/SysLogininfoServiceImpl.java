@@ -8,6 +8,8 @@ import run.app.step.project.system.service.SysLogininfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务实现类
@@ -25,6 +27,11 @@ public class SysLogininfoServiceImpl extends ServiceImpl<SysLogininfoMapper, Sys
     @Override
     public void insertLogininfor(SysLogininfo logininfor) {
         ServiceUtil.throwsException(logininfoMapper.insertLogininfor(logininfor), "登录日志插入失败");
+    }
+
+    @Override
+    public List<SysLogininfo> selectLimitLog() {
+        return logininfoMapper.selectLimitLog();
     }
 
 }

@@ -54,7 +54,7 @@ export const constantRouterMap = [
         path: '/college',
         name: '学院管理',
         component: () => import('@/views/system/college/index'),
-        meta: { title: '学院管理', icon: 'tree' }
+        meta: { title: '学院管理', icon: 'table' }
       },
       {
         path: '/menu',
@@ -79,6 +79,12 @@ export const constantRouterMap = [
         name: '角色管理',
         component: () => import('@/views/system/role/index'),
         meta: { title: '角色管理', icon: 'table' },
+      },
+      {
+        path: '/notice',
+        name: '公告通知',
+        component: () => import('@/views/system/notice/index'),
+        meta: { title: '公告通知', icon: 'table' },
       },
       {
         path: '/log',
@@ -163,8 +169,8 @@ export const constantRouterMap = [
     component: Layout,
     children: [
       {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
+        path: 'https://github.com/RookieTalent/STEP',
+        meta: { title: 'Step源码', icon: 'link' }
       }
     ]
   },

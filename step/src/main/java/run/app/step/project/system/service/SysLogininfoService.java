@@ -3,6 +3,8 @@ package run.app.step.project.system.service;
 import run.app.step.project.system.entity.SysLogininfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -19,5 +21,12 @@ public interface SysLogininfoService extends IService<SysLogininfo> {
      * @param loginin 访问日志对象
      */
     public void insertLogininfor(SysLogininfo loginin);
+
+    /**
+     * 查询条数
+     *
+     * @return
+     */
+    List<SysLogininfo> selectLimitLog();
 
 }

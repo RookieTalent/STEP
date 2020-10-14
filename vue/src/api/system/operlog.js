@@ -33,6 +33,14 @@ export default {
       url: '/system/log/export',
       method: 'get'
     })
+  },
+
+  // 查询登录信息
+  getLoginInfo(){
+    return request({
+      url: '/system/log/loginInfo',
+      method: 'get'
+    })
   }
 
 
